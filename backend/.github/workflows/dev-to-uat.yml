@@ -8,14 +8,15 @@ on:
 jobs:
   promote:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create PR DEV → UAT
+      - name: Create Pull Request from DEV to UAT
         uses: repo-sync/pull-request@v2
         with:
           source_branch: "DEV"
           destination_branch: "UAT"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-            
+          pr_title: "Promote DEV to UAT"
