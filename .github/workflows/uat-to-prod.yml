@@ -1,0 +1,19 @@
+name: Promote UAT to PROD
+
+on:
+  push:
+    branches:
+      - UAT
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Pull Request from UAT to PROD
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "UAT"
+          destination_branch: "PROD"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: "Promote UAT to PROD"
