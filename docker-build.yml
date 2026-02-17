@@ -13,5 +13,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t fastapi-app .
+      - name: Build Docker image (no cache)
+        run: docker build --no-cache -t fastapi-app .
