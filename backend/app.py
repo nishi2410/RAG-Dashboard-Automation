@@ -22,3 +22,5 @@ def send_message(data: Message):
         "message": data.message,
         "processed_at": datetime.now()
     }
+#testing automatic PR
+#checking docker
