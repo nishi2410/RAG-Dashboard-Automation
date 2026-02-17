@@ -1,12 +1,14 @@
 name: Auto Promote UAT to PROD
 
 on:
-  push:
-    branches:
-      - UAT
+  workflow_run:
+    workflows: ["Auto Promote DEV to UAT"]
+    types:
+      - completed
 
 jobs:
   promote:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
