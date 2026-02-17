@@ -25,3 +25,4 @@ def send_message(data: Message):
 #Testing DEV to UAT automation clearly
 #Fresh automation test
 # force rebuild #
+#moved docker.yml inside workflos
