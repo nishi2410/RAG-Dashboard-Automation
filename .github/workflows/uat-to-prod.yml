@@ -1,4 +1,4 @@
-name: Auto Merge UAT to PROD
+name: Auto Promote UAT to PROD
 
 on:
   push:
@@ -12,12 +12,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Merge UAT into PROD
+      - name: Promote UAT to PROD (force sync)
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git fetch origin
-          git checkout PROD
-          git merge origin/UAT --no-edit --allow-unrelated-historie
-          git push origin PROD
+
+          git checkout PROD || git checkout -b PROD origin/PROD
+
+          git reset --hard origin/UAT
+
+          git push origin PROD --force

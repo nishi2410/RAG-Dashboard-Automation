@@ -10,14 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Merge DEV into UAT
+      - name: Promote DEV to UAT (force sync)
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.email "github-actions@github.com"
+
           git fetch origin
-          git checkout UAT
-          git merge origin/DEV --no-edit
-          git push origin UAT
+
+          git checkout UAT || git checkout -b UAT origin/UAT
+
+          git reset --hard origin/DEV
+
+          git push origin UAT --force
