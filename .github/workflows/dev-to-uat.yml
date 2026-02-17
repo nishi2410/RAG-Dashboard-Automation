@@ -1,4 +1,4 @@
-name: Promote DEV to UAT
+name: Auto Promote DEV to UAT
 
 on:
   push:
@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Create Pull Request from DEV to UAT
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "DEV"
-          destination_branch: "UAT"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: "Promote DEV to UAT"
+      - name: Merge DEV into UAT
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git fetch origin
+          git checkout UAT
+          git merge origin/DEV --no-edit
+          git push origin UAT

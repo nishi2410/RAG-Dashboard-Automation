@@ -1,4 +1,4 @@
-name: Promote UAT to PROD
+name: Auto Merge UAT to PROD
 
 on:
   push:
@@ -13,10 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create Pull Request from UAT to PROD
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "UAT"
-          destination_branch: "PROD"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: "Promote UAT to PROD"
+      - name: Merge UAT into PROD
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git fetch origin
+          git checkout PROD
+          git merge origin/UAT --no-edit
+          git push origin PROD
