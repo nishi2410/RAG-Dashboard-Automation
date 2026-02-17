@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Create Pull Request from UAT to PROD
         uses: repo-sync/pull-request@v2
         with:
