@@ -22,7 +22,3 @@ def send_message(data: Message):
         "message": data.message,
         "processed_at": datetime.now()
     }
-#Testing DEV to UAT automation clearly
-#Fresh automation test
-# force rebuild #
-#moved docker.yml inside workflos
